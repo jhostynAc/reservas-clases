@@ -11,14 +11,18 @@ export default function Card({clase, onPress}){
             <View>
                 <EtiquetaNivel nivel={clase.Nivel} />
                 <Text style={styles.titulo}>{clase.titulo}</Text>
-                --precio
-                --nivel
-                --nombre del profesor
+                <Text style={styles.precio}>{clase.precio}</Text>
+                <Text style={styles.nivel}>{clase.nivel}</Text>
+                <Text style={styles.profesor}>{clase.profesor}</Text>
             </View>
         </Pressable>
     )
 }
 
 const styles=StyleSheet.create({
-    titulo:{fontSize: 16,color: colors.texto}
+    titulo:{fontSize: 16,color: colors.texto},
+    precio:{fontSize: 14,color: colors.texto},
+    nivel:{fontSize: 12,color: colors.texto},
+    profesor:{fontSize: 12,color: colors.texto},
+
 })
