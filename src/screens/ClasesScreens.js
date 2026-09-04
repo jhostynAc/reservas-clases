@@ -42,6 +42,7 @@ export default function ClasesScreens ({navigation}) {
                     {
                         NIVELES.map((item) => (
                             <NivelFiltro
+                                key={item}
                                 etiqueta={item}
                                 activo={nivel === item}
                                 onPress={() => setNivel(item)}

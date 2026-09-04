@@ -18,6 +18,7 @@ export default function NivelFiltro({etiqueta, activo, onPress}){
     )
 }
 
+
 const style = StyleSheet.create({
   chip: {
     paddingVertical: spacing.sm,
