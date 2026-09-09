@@ -13,6 +13,16 @@ export default function ClasesStack(){
             component={ClasesScreens}
             options={{headerShown: false}}
             />
+            <Stack.Screen
+            name="DetalleClase"
+            component={DetalleClaseScreen}
+            options={{
+                title: 'Detalle',headerBackTitle:'Atras'
+            }}
+            numColumns={columnas}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingHorizontal,flexGrow: 1, paddingBottom: spacing.xl   }}
+            />
         </Stack.Navigator>
     )
 }

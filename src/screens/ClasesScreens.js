@@ -12,9 +12,19 @@ import {CLASES, NIVELES} from '../data/clases';
 export default function ClasesScreens ({navigation}) {
     //const {columms, paddingHorizontal} = useResponsive('');
     const insets = useSafeAreaInsets();
+    const {columnas,paddingHorizontal} = useResponsive();
     const [nivel, setNivel] = useState('Todos');
     const [busqueda, setBusqueda] = useState('');
-    const { paddingHorizontal } = useResponsive();
+
+    const resultados = useMemo(() => {
+        const textoBusqueda = busqueda.trim().toLowerCase();
+        return CLASES.filter((clase) => {
+            const concideNivel = nivel === 'Todos' || clase.nivel === nivel;
+            const concideTextoBusqueda = textoBusqueda === '' || clase.titulo.toLowerCase().includes(textoBusqueda) || clase.profesor.nombre.toLowerCase().includes(textoBusqueda);
+            return concideNivel && concideTextoBusqueda;
+        })
+    },[nivel, busqueda]);
+
     
     return (
         <View style={[style.pantalla, {paddingTop: insets.top + spacing.med}]}>
@@ -50,6 +60,29 @@ export default function ClasesScreens ({navigation}) {
                         ))
                     }
                 </ScrollView>
+                <FlatList
+                   data={resultados}
+                   keyExtractor={(item) => item.id}
+                   renderItem={({item}) => (
+                    <Card
+                        clase={item}
+                        onPress={() => navigation.navigate('DetalleClase', {clase: item})}
+                    />
+                   )}
+                   ListEmptyComponent={() => (
+                   <EstadoVacio
+                    icono="search-outline"
+                    titulo="No se encontraron resultados"
+                    mensaje="Intenta con otro criterio de búsqueda"
+                    textoAction="Limpiar busqueda"
+                    onAction={() => {
+                        setNivel('Todos');
+                        setBusqueda('');
+                    }}
+
+                    />
+                   )}
+                />
             </View>
         </View>
     )
