@@ -4,7 +4,7 @@ export const colors={
     fondo:"#F6F7FB",
     primaria:'#4f46e5',
     texto:'#111827',
-    border:'#E5E7eb'
+    border:'#14377e'
 }
 
 export const spacing={
@@ -29,4 +29,11 @@ export const typography={
     subtitulo:{fontsize:18,fontweight:'600',color:colors.texto}
 }
 
-export default{colors,spacing,typography}
+export const columns={
+    xs:2,
+    sm:3,
+    md:4,
+    lg:6
+}
+
+export default{colors,spacing,typography,radius}

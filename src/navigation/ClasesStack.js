@@ -1,7 +1,9 @@
 import react from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ClasesScreens from '../screens/ClasesScreens';
-import {colors} from '../theme';
+import DetalleClaseScreen from '../screens/DetalleClaseScreen';
+import ReservaScreens from '../screens/ReservaScreens';
+import {colors,spacing,columns} from '../theme';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,9 +21,16 @@ export default function ClasesStack(){
             options={{
                 title: 'Detalle',headerBackTitle:'Atras'
             }}
-            numColumns={columnas}
+            numColumns={columns.lg}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingHorizontal,flexGrow: 1, paddingBottom: spacing.xl   }}
+            contentContainerStyle={{paddingHorizontal: spacing.xl, flexGrow: 1, paddingBottom: spacing.xl   }}
+            />
+            <Stack.Screen
+            name="Reservas"
+            component={ReservaScreens}
+            options={{
+                title: 'Reserva de clase',headerBackTitle:'Atras'
+            }}
             />
         </Stack.Navigator>
     )
