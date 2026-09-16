@@ -1,4 +1,4 @@
-import react, {useMemo,UseState,useLayoutEffect} from 'react';
+import react, {useMemo,useState,useLayoutEffect} from 'react';
 import {View, Text, ScrollView,StyleSheet, Alert, Image ,TouchableOpacity } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Ionicons} from '@expo/vector-icons';
@@ -10,7 +10,14 @@ export default function DetalleClaseScreen({route,navigation}){
     const insets = useSafeAreaInsets();
     const {clase} = route.params;
     const {isTablet} = useResponsive();
+    const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
 
+    const manejoReserva = () => {
+      if(clase.cupos > 0){
+        clase.cupos = clase.cupos - 1;
+        Alert.alert('Reserva exitosa', 'Tu reserva ha sido realizada con éxito.');
+      }
+    }
     useLayoutEffect(() => {
       navigation.setOptions({
         title: clase.titulo,
@@ -38,10 +45,28 @@ export default function DetalleClaseScreen({route,navigation}){
               <Text style={styles.descripcion}>{clase.descripcion}</Text>
               <Text style={styles.precio}>Costo: {formatearPrecio(clase.precio)}</Text>
               <Text>Duracion de la clase: {clase.duracion} min.</Text>
-              <Text>Cupos disponibles: {clase.cupos}</Text>
-              <Text>Horarios: {clase.horarios}</Text>
+              <Text>Cupos disponibles: {clase.cupos}</Text>  
+              <Text>Horarios:</Text>
+              <View style={{flexDirection: 'column', gap: spacing.sm, padding: spacing.md, borderRadius: radius.lg, marginTop: spacing.md}}>
+                {
+                  clase.horarios.map((horario, index) => (
+                    <TouchableOpacity style={{ backgroundColor: horarioSeleccionado === horario ?'white':'gray', padding: spacing.md, borderRadius: radius.lg}} key={index} onPress={() => setHorarioSeleccionado(horario)}>
+                      <Text>{horario}</Text>
+                    </TouchableOpacity>
+                  ))
+                }
+              </View>
+              
+              
               <View style={styles.contenido}>
-                <Text style={styles.botonInscribirme} onPress={()=>navigation.navigate('Reservas',{clase: clase})}>Inscribirme</Text>
+                {
+                  clase.cupos > 0 ? (
+                    <Text style={styles.botonInscribirme}  onPress={() => manejoReserva()}>Reservar</Text>
+
+                  ):(
+                    <Text style={styles.botonInscribirme}>Sin cupos disponibles</Text>
+                  )
+                }
               </View>
             </View>
           </View>
