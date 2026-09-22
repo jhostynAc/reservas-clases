@@ -24,5 +24,6 @@ export function ReservaProvider({children}){
         }
 
         }
+        cargar();
     },[])
 }
