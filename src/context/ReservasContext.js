@@ -1,6 +1,5 @@
 import React,{useState,useEffect,useCallback,useMemo,createContext} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import e from "cors";
 
 const CLAVE_RESERVAS = "@reservas_ingles";
 

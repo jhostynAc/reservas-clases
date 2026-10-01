@@ -1,38 +1,39 @@
-import rect from 'react';
-import {Pressable, Text, StyleSheet} from 'react-native';
-import {colors, spacing, typography, radius} from '../theme';
+import React from 'react';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors, spacing, radius } from '../theme';
 
-export default function NivelFiltro({etiqueta, activo, onPress}){
-    
-    return(
-        <Pressable
-         onPress={onPress}
-         style={({pressed})=>{
-            style.chip,
-            activo && style.chipActivo,
-            pressed && {opacity:0.7}
-         }}
+export default function NivelFiltro({ etiqueta, activo, onPress }) {
+    return (
+        <TouchableOpacity 
+            style={[styles.boton, activo && styles.botonActivo]} 
+            onPress={onPress}
         >
-            <Text style={[style.texto, activo && style.textoActivo]}>{etiqueta}</Text>
-        </Pressable>
-    )
+            <Text style={[styles.texto, activo && styles.textoActivo]}>
+                {etiqueta}
+            </Text>
+        </TouchableOpacity>
+    );
 }
 
-
-const style = StyleSheet.create({
-  chip: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    borderRadius: radius.full,
-    backgroundColor: colors.superficie,
-    borderWidth: 1,
-    borderColor: colors.borde,
-    marginRight: spacing.sm,
-  },
-  chipActivo: {
-    backgroundColor: colors.primario,
-    borderColor: colors.primario,
-  },
-  texto: { fontSize: 13, fontWeight: '600', color: colors.textoSuave },
-  textoActivo: { color: '#FFFFFF' },
+const styles = StyleSheet.create({
+    boton: {
+        paddingHorizontal: spacing.md,
+        paddingVertical: spacing.sm,
+        borderRadius: radius.lg,
+        backgroundColor: '#FFFFFF', 
+        borderWidth: 1,
+        borderColor: colors.border,
+    },
+    botonActivo: {
+        backgroundColor: colors.primaria, 
+        borderColor: colors.primaria,
+    },
+    texto: {
+        color: colors.texto, 
+        fontSize: 14,
+        fontWeight: '600',
+    },
+    textoActivo: {
+        color: '#FFFFFF', // Letra blanca cuando está activo
+    }
 });

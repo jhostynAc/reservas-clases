@@ -28,15 +28,17 @@ export default function ClasesScreens ({navigation}) {
     
     return (
         <View style={[style.pantalla, {paddingTop: insets.top + spacing.med}]}>
-            <View style={{paddingHorizontal}}>
+            <View style={[style.contenido, {paddingHorizontal}]}>
                 <Text style={typography.titulo}>Aplicacion de clases de ingles</Text>
                 <View style={style.buscador}>
                     <Ionicons name="search" size={18}/>
-                    <TextInput placeholder="Busqueda por nivel o profesor" 
-                    value={busqueda} 
-                    onChangeText={setBusqueda}
-                    autoCorrect={false}
-                    autoComplete={false}
+                    <TextInput 
+                        style={style.input} 
+                        placeholder="Busqueda por nivel o profesor" 
+                        value={busqueda} 
+                        onChangeText={setBusqueda}
+                        autoCorrect={false}
+                        autoComplete={false}
                     />
 
                     {busqueda.length > 0 && (
@@ -47,8 +49,13 @@ export default function ClasesScreens ({navigation}) {
                         />
                     )}
                 </View>
+                
                 <ScrollView
-                    style={{ flexGrow: 0 }}>
+                    horizontal // <- Hace que sea en row
+                    showsHorizontalScrollIndicator={false}
+                    style={style.scrollNiveles}
+                    contentContainerStyle={style.nivelesContenedor}
+                >
                     {
                         NIVELES.map((item) => (
                             <NivelFiltro
@@ -60,9 +67,11 @@ export default function ClasesScreens ({navigation}) {
                         ))
                     }
                 </ScrollView>
+                
                 <FlatList
                    data={resultados}
                    keyExtractor={(item) => item.id}
+                   contentContainerStyle={{ paddingBottom: insets.bottom + spacing.xl }}
                    renderItem={({item}) => (
                     <Card
                         clase={item}
@@ -90,6 +99,7 @@ export default function ClasesScreens ({navigation}) {
 
 const style = StyleSheet.create({
   pantalla: { flex: 1, backgroundColor: colors.fondo },
+  contenido: { flex: 1 }, // <- Mantiene todo en la pantalla sin desbordarse
   buscador: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -103,4 +113,12 @@ const style = StyleSheet.create({
     borderColor: colors.border,
   },
   input: { flex: 1, fontSize: 14, color: colors.texto, paddingVertical: 0 },
+  scrollNiveles: { 
+    flexGrow: 0, 
+    marginVertical: spacing.md, 
+    minHeight: 40 
+  }, 
+  nivelesContenedor: { 
+    gap: spacing.sm 
+  } 
 });
