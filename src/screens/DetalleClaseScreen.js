@@ -2,6 +2,7 @@ import React, { useMemo, useState, useLayoutEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import ReservaItem from '../components/ReservaItem';
 import useResponsive from '../hooks/useResponsive';
 import { colors, spacing, typography, radius } from '../theme';
 import { formatearPrecio } from '../data/clases';
@@ -72,25 +73,11 @@ export default function DetalleClaseScreen({ route, navigation }) {
                         </View>
                     </View>
 
-                    <View style={styles.seccion}>
-                        <Text style={styles.subtitulo}>Selecciona un horario:</Text>
-                        <View style={styles.horariosContainer}>
-                            {clase.horarios.map((horario, index) => {
-                                const activo = horarioSeleccionado === horario;
-                                return (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={[styles.horarioPill, activo && styles.horarioPillActivo]}
-                                        onPress={() => setHorarioSeleccionado(horario)}
-                                    >
-                                        <Text style={[styles.horarioTexto, activo && styles.horarioTextoActivo]}>
-                                            {horario}
-                                        </Text>
-                                    </TouchableOpacity>
-                                );
-                            })}
-                        </View>
-                    </View>
+                    <ReservaItem
+                        horarios={clase.horarios}
+                        horarioSeleccionado={horarioSeleccionado}
+                        setHorarioSeleccionado={setHorarioSeleccionado}
+                    />
 
                 </View>
             </ScrollView>
@@ -188,37 +175,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '800',
         color: colors.primaria,
-    },
-    subtitulo: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: colors.texto,
-        marginBottom: spacing.md,
-    },
-    horariosContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap', 
-        gap: spacing.sm,
-    },
-    horarioPill: {
-        paddingVertical: spacing.sm,
-        paddingHorizontal: spacing.lg,
-        borderRadius: radius.full,
-        backgroundColor: '#F0F0F0',
-        borderWidth: 1,
-        borderColor: '#E0E0E0',
-    },
-    horarioPillActivo: {
-        backgroundColor: colors.primaria,
-        borderColor: colors.primaria,
-    },
-    horarioTexto: {
-        fontSize: 14,
-        color: colors.texto,
-        fontWeight: '600',
-    },
-    horarioTextoActivo: {
-        color: '#FFFFFF',
     },
     barraInferior: {
         position: 'absolute',

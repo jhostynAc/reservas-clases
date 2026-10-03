@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {colors, spacing} from "../theme";
 
@@ -11,11 +11,15 @@ export default function EstadoVacio(icono, titulo, mensaje, textoAction, onActio
             </View>
             <Text style={style.titulo}>{titulo}</Text>
             <Text style={style.mensaje}>{mensaje}</Text>
-
+            {textoAction &&(
+              <Pressable style={style.boton} onPress={onAction}>
+                <Text style={style.textoBoton}>{textoAction}</Text>
+              </Pressable>
+            )}
         </View>
     )
 
-}
+} 
 
 const style = StyleSheet.create({
   contenedor: {
@@ -40,5 +44,17 @@ const style = StyleSheet.create({
     textAlign: 'center',
     marginTop: spacing.sm,
     lineHeight: 20,
+  },
+  boton: {
+    backgroundColor: colors.primario,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: radius.md,
+    marginTop: spacing.lg,
+  },
+  textoBoton: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: colors.blanco,
   },
 });

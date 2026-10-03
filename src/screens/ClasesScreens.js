@@ -51,7 +51,7 @@ export default function ClasesScreens ({navigation}) {
                 </View>
                 
                 <ScrollView
-                    horizontal // <- Hace que sea en row
+                    horizontal 
                     showsHorizontalScrollIndicator={false}
                     style={style.scrollNiveles}
                     contentContainerStyle={style.nivelesContenedor}
@@ -78,20 +78,19 @@ export default function ClasesScreens ({navigation}) {
                         onPress={() => navigation.navigate('DetalleClase', {clase: item})}
                     />
                    )}
-                   ListEmptyComponent={() => (
+                ListEmptyComponent={() => (
                    <EstadoVacio
-                    icono="search-outline"
-                    titulo="No se encontraron resultados"
-                    mensaje="Intenta con otro criterio de búsqueda"
-                    textoAction="Limpiar busqueda"
-                    onAction={() => {
+                     icono="search-outline"
+                     titulo="No se encontraron resultados"
+                     mensaje="Intenta con otro criterio de búsqueda"
+                     textoAction="Limpiar busqueda"
+                     onAction={() => {
                         setNivel('Todos');
                         setBusqueda('');
                     }}
-
                     />
-                   )}
-                />
+                )}
+                /> 
             </View>
         </View>
     )
@@ -99,7 +98,7 @@ export default function ClasesScreens ({navigation}) {
 
 const style = StyleSheet.create({
   pantalla: { flex: 1, backgroundColor: colors.fondo },
-  contenido: { flex: 1 }, // <- Mantiene todo en la pantalla sin desbordarse
+  contenido: { flex: 1 }, 
   buscador: {
     flexDirection: 'row',
     alignItems: 'center',
