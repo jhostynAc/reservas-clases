@@ -6,8 +6,11 @@ import {Ionicons} from "@expo/vector-icons";
 import useResponsive from '../hooks/useResponsive';
 import Card from '../components/Card';
 import NivelFiltro from '../components/NivelFiltro';
+import EstadoVacio from '../components/EstadoVacio';
+import NavBar from "../components/NavBar";
 import { spacing, colors, typography, radius } from '../theme';
 import {CLASES, NIVELES} from '../data/clases';
+
 
 export default function ClasesScreens ({navigation}) {
     //const {columms, paddingHorizontal} = useResponsive('');
@@ -27,7 +30,7 @@ export default function ClasesScreens ({navigation}) {
 
     
     return (
-        <View style={[style.pantalla, {paddingTop: insets.top + spacing.med}]}>
+        <View style={[style.pantalla, {paddingTop: insets.top + spacing.md}]}>
             <View style={[style.contenido, {paddingHorizontal}]}>
                 <Text style={typography.titulo}>Aplicacion de clases de ingles</Text>
                 <View style={style.buscador}>
@@ -69,29 +72,37 @@ export default function ClasesScreens ({navigation}) {
                 </ScrollView>
                 
                 <FlatList
-                   data={resultados}
-                   keyExtractor={(item) => item.id}
-                   contentContainerStyle={{ paddingBottom: insets.bottom + spacing.xl }}
-                   renderItem={({item}) => (
-                    <Card
-                        clase={item}
-                        onPress={() => navigation.navigate('DetalleClase', {clase: item})}
-                    />
-                   )}
-                ListEmptyComponent={() => (
-                   <EstadoVacio
-                     icono="search-outline"
-                     titulo="No se encontraron resultados"
-                     mensaje="Intenta con otro criterio de búsqueda"
-                     textoAction="Limpiar busqueda"
-                     onAction={() => {
-                        setNivel('Todos');
-                        setBusqueda('');
+                    data={resultados}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <Card
+                            clase={item}
+                            onPress={() => navigation.navigate('DetalleClase', { clase: item})}
+                        />
+                    )}
+                    numColumns={columnas}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                        paddingHorizontal,
+                        flexGrow: 1,
+                        paddingBottom: spacing.xl
                     }}
-                    />
-                )}
-                /> 
+                    ListEmptyComponent={
+                        <EstadoVacio
+                            icono="search-outline"
+                            titulo="No encontramos valores de busqueda"
+                            mensaje="Intenta con otro valor de busqueda o cambia las palabras"
+                            textoAction="Quitar filtros"
+                            onAction={() => {
+                                setNivel('Todos');
+                                setBusqueda('');
+                            }}
+                        />
+                    }
+
+                />
             </View>
+            <NavBar navigation={navigation}/>
         </View>
     )
 }

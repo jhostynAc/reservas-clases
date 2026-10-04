@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     textoActivo: {
-        color: '#FFFFFF', // Letra blanca cuando está activo
+        color: '#FFFFFF', 
     }
 });

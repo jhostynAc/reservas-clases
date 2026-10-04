@@ -1,13 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import {colors, spacing} from "../theme";
+import {colors, spacing,radius} from "../theme";
 
 export default function EstadoVacio(icono, titulo, mensaje, textoAction, onAction) {
     return (
         <View style={style.contenedor}>
             <View style={style.circulo}>
-                <Ionicons name={icono} size={30} color={colors.primario} />
+                <Ionicons name={icono} size={30} color={colors.primaria} />
             </View>
             <Text style={style.titulo}>{titulo}</Text>
             <Text style={style.mensaje}>{mensaje}</Text>

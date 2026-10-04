@@ -2,6 +2,7 @@ import React, { useMemo, useState, useLayoutEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import NavBar from '../components/NavBar';
 import ReservaItem from '../components/ReservaItem';
 import useResponsive from '../hooks/useResponsive';
 import { colors, spacing, typography, radius } from '../theme';
@@ -20,10 +21,20 @@ export default function DetalleClaseScreen({ route, navigation }) {
         }
         if (clase.cupos > 0) {
             clase.cupos = clase.cupos - 1;
-            Alert.alert('Reserva exitosa', 'Tu reserva ha sido realizada con éxito.');
+            Alert.alert('Confirmación', 'Esta seguro que desea reservar la clase?',
+                [{
+                    text: 'Cancelar',
+                    style: 'cancel',
+                    onPress: () => console.log('Reserva cancelada.')
+                },{
+                    text: 'Aceptar',
+                    style: 'default',
+                    onPress: () => console.log('Clase reservada con éxito.')
+                }],{cancelable: false}
+            );
         }
     };
-
+    
     useLayoutEffect(() => {
         navigation.setOptions({
             title: clase.titulo,
@@ -93,7 +104,9 @@ export default function DetalleClaseScreen({ route, navigation }) {
                     </Text>
                 </TouchableOpacity>
             </View>
+         
         </View>
+        
     );
 }
 
@@ -207,4 +220,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+
 });
