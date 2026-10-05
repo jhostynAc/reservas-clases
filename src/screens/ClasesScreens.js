@@ -102,7 +102,7 @@ export default function ClasesScreens ({navigation}) {
 
                 />
             </View>
-            <NavBar navigation={navigation}/>
+                <NavBar navigation={navigation}/>            
         </View>
     )
 }

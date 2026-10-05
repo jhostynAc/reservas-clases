@@ -29,6 +29,7 @@ export default function ClasesStack(){
             name="Reservas"
             component={ReservaScreens}
             options={{headerShown: false}}
+            showsVerticalScrollIndicator={false}
             />
         </Stack.Navigator>
     )
