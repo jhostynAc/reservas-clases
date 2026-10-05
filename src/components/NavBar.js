@@ -8,10 +8,10 @@ export default function NavBar({ navigation}) {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.boton} >
-                <Ionicons name="home" size={24} color="white" />
+                <Ionicons name="home" size={24} color="white" onPress={()=> navigation.navigate('Home')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.boton}>
-                <Ionicons name="list" size={24} color="white"  />
+                <Ionicons name="list" size={24} color="white" onPress={()=> navigation.navigate('Reservas')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.boton} >
                 <Ionicons name="person" size={24} color="white" />

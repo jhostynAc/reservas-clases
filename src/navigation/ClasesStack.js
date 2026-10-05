@@ -28,9 +28,7 @@ export default function ClasesStack(){
             <Stack.Screen
             name="Reservas"
             component={ReservaScreens}
-            options={{
-                title: 'Reserva de clase',headerBackTitle:'Atras'
-            }}
+            options={{headerShown: false}}
             />
         </Stack.Navigator>
     )

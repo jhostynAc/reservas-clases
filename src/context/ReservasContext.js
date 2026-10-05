@@ -40,7 +40,7 @@ export function ReservaProvider({children}){
             id: clase.id +  '-' + horario,
             titulo: clase.titulo,
             nivel: clase.nivel,
-            profesor: clase.profesor.nombre + '' +clase.profesor.apellido,
+            profesor: clase.profesor.nombre ,
             precio: clase.precio,
             horario,
             creadaEn: new Date().toISOString(),
@@ -58,7 +58,7 @@ export function ReservaProvider({children}){
     },[])
 
     const valor = useMemo(
-        ()=>{reservas,cargando,agregarReserva},[reservas,cargando,agregarReserva]
+        ()=>({reservas,cargando,agregarReserva}),[reservas,cargando,agregarReserva]
     )
 
     return <ReservasContext.Provider value={valor}>{children}</ReservasContext.Provider>

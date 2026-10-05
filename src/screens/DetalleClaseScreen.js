@@ -1,8 +1,8 @@
-import React, { useMemo, useState, useLayoutEffect } from 'react';
+import React, { useMemo, useState, useLayoutEffect,useContext } from 'react';
 import { View, Text, ScrollView, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import NavBar from '../components/NavBar';
+import { ReservasContext } from '../context/ReservasContext';
 import ReservaItem from '../components/ReservaItem';
 import useResponsive from '../hooks/useResponsive';
 import { colors, spacing, typography, radius } from '../theme';
@@ -13,6 +13,7 @@ export default function DetalleClaseScreen({ route, navigation }) {
     const { clase } = route.params;
     const { isTablet } = useResponsive();
     const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
+    const { agregarReserva } = useContext(ReservasContext);
 
     const manejoReserva = () => {
         if (!horarioSeleccionado) {
@@ -20,17 +21,31 @@ export default function DetalleClaseScreen({ route, navigation }) {
             return;
         }
         if (clase.cupos > 0) {
-            clase.cupos = clase.cupos - 1;
             Alert.alert('Confirmación', 'Esta seguro que desea reservar la clase?',
                 [{
                     text: 'Cancelar',
-                    style: 'cancel',
                     onPress: () => console.log('Reserva cancelada.')
                 },{
                     text: 'Aceptar',
-                    style: 'default',
-                    onPress: () => console.log('Clase reservada con éxito.')
-                }],{cancelable: false}
+                    onPress: () => {
+                        const resultado = agregarReserva(clase, horarioSeleccionado);
+                        if (resultado.ok) {
+                            Alert.alert('Reserva exitosa', 'La clase ha sido reservada con éxito.'
+                                [{
+                                    text: 'ok',
+                                    onPress: () => {
+                                        setHorarioSeleccionado(null);
+                                    }
+                                }]
+                            );
+                            clase.cupos = clase.cupos - 1;
+                        }else{
+                            Alert.alert('Error', resultado.mensaje);
+                        }
+                    }
+                }
+            ],
+            {cancelable: false}
             );
         }
     };

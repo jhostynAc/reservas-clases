@@ -33,4 +33,5 @@ export default function useAlmacenamiento(clave, valorinicial) {
             }
         },[clave]
     );
+    return [valor,actualizar,listo];
 }
