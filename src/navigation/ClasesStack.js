@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ClasesScreens from '../screens/ClasesScreens';
 import DetalleClaseScreen from '../screens/DetalleClaseScreen';
 import ReservaScreens from '../screens/ReservaScreens';
+import LoginScreen from '../screens/LoginScreen'
 import {colors,spacing,columns} from '../theme';
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,12 @@ export default function ClasesStack(){
             <Stack.Screen
             name="Reservas"
             component={ReservaScreens}
+            options={{headerShown: false}}
+            showsVerticalScrollIndicator={false}
+            />
+            <Stack.Screen
+            name="Login"
+            component={LoginScreen}
             options={{headerShown: false}}
             showsVerticalScrollIndicator={false}
             />

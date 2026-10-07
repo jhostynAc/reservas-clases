@@ -14,7 +14,7 @@ export default function NavBar({ navigation}) {
                 <Ionicons name="list" size={24} color="white" onPress={()=> navigation.navigate('Reservas')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.boton} >
-                <Ionicons name="person" size={24} color="white" />
+                <Ionicons name="person" size={24} color="white"  onPress={()=> navigation.navigate('Login')}/>
             </TouchableOpacity>
         </View>
     )
