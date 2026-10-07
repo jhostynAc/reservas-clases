@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { spacing, colors, radius } from '../theme';
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from 'react-native-paper';
+import { UsuarioContext } from '../context/UsuariosContext'
 
-export default function Form() {
+export default function Form({navigation }) {
+
+    const { registrarUsuario, iniciarSesion } = useContext(UsuarioContext);
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -13,6 +15,43 @@ export default function Form() {
     const [contraseña, setContraseña] = useState('');
 
     const [esLogin, setLogin] = useState(true);
+
+    const manejosSubmit = () => {
+        if (!esLogin) {
+            const paquete = {
+                id: Date.now().toString(),
+                nombre: nombre,
+                apellido: apellido,
+                telefono: telefono,
+                foto: foto,
+                email: email.trim().toLowerCase(),
+                contraseña: contraseña
+            };
+
+            const resultado = registrarUsuario(paquete);
+            if (resultado.ok) {
+                Alert.alert('Exito', 'Bienvenido');
+            } else {
+                Alert.alert('Aviso', resultado.mensaje)
+            }
+        } else {
+            const resultado = iniciarSesion(email.trim().toLocaleLowerCase(), contraseña)
+            if (!resultado.ok) {
+                Alert.alert('Error', resultado.mensaje)
+            } else {
+                Alert.alert(
+                    "Bienvenido",
+                    "Has iniciado sesion correctamente",
+                    [
+                        {
+                            text:"continuar",
+                            onPress:()=> navigation.navigate('Perfil')
+                        }
+                    ]
+                )
+            }
+        }
+    }
 
     const manejoform = () => {
         if (esLogin) {
@@ -35,38 +74,49 @@ export default function Form() {
                 placeholder='Correo'
                 keyboardType='email-address'
                 autoCapitalize='none'
+                value={email}
+                onChangeText={setEmail}
                 style={styles.input}
             />
             <TextInput
                 placeholder='Contraseña'
                 secureTextEntry
-                
+                value={contraseña}
+                onChangeText={setContraseña}
                 style={styles.input}
             />
             {!esLogin && (
                 <>
                     <TextInput
-                    style={styles.input}
+                        style={styles.input}
                         placeholder='Nombre'
+                        value={nombre}
+                        onChangeText={setNombre}
                     />
                     <TextInput
-                    style={styles.input}
+                        style={styles.input}
                         placeholder='Apellido'
+                        value={apellido}
+                        onChangeText={setApellido}
                     />
                     <TextInput
-                    style={styles.input}
+                        style={styles.input}
                         placeholder='Telefono'
                         keyboardType='phone-pad'
+                        value={telefono}
+                        onChangeText={setTelefono}
                     />
                     <TextInput
-                    style={styles.input}
+                        style={styles.input}
                         placeholder='URL foto'
+                        value={foto}
+                        onChangeText={setFoto}
                     />
                 </>
 
             )
             }
-            <TouchableOpacity onPress={manejoform}>
+            <TouchableOpacity onPress={manejosSubmit}>
                 <Text style={styles.boton}>
                     {esLogin ? 'Entrar' : 'Registrarse'}
                 </Text>
@@ -82,8 +132,8 @@ export default function Form() {
     )
 }
 const styles = StyleSheet.create({
-    contenedor:{
-        flex:1,
+    contenedor: {
+        flex: 1,
         alignItems: 'center',
         padding: spacing.md,
         gap: spacing.xl,

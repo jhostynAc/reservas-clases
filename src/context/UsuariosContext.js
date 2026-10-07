@@ -50,7 +50,7 @@ export function UsuarioProvider ({children}){
         let resultados = {ok:true}
 
         setUsuario((previa)=>{
-            if(previa.some((u)=>u.correo.toLowerCase()===nuevoUsuario.correo.toLowerCase())){
+            if(previa.some((u)=>u.email.toLowerCase()===nuevoUsuario.email.toLowerCase())){
                 resultados = {ok: false,mensaje: 'Data duplicada: el correo ya existe'};
                 return previa;
             }
@@ -61,8 +61,8 @@ export function UsuarioProvider ({children}){
         return resultados;
     },[]);
 
-    const iniciarSesion = useCallback((correo,contraseña)=>{
-        const encontrado = usuario.find(u => u.correo.toLowerCase()===correo.toLowerCase() && u.contraseña === contraseña);
+    const iniciarSesion = useCallback((email,contraseña)=>{
+        const encontrado = usuario.find(u => u.email.toLowerCase()===email.toLowerCase() && u.contraseña === contraseña);
 
         if(encontrado){
             setUsuarioActivo(encontrado);

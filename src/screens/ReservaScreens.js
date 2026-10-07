@@ -32,8 +32,10 @@ export default function ReservaScreens(navigation){
               <CardReserva 
               reserva={item}/>
             )}
-            ListEmptyComponent={() => (
-              <Text>No hay reservas disponibles.</Text>
+            ListEmptyComponent ={() => (
+              <View style={styles.contenedor}>
+                <Text>No hay reservas disponibles.</Text>
+              </View>
             )}
           />
           <NavBar navigation={navigation} />
@@ -49,4 +51,9 @@ const styles = StyleSheet.create({
         color: colors.texto,
         marginTop: 4,
     },
+    contenedor:{
+      justifyContent:'center',
+      alignItems: 'center'
+      
+    }
 });
