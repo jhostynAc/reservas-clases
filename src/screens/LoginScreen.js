@@ -9,7 +9,7 @@ export default function LoginScreen({ navigation }) {
     const insets = useSafeAreaInsets();
     return (
         <View  style={[styles.pantalla, { paddingTop: insets.top + spacing.md }]}>
-            <Form />
+            <Form navigation={navigation}/>
             <NavBar navigation={navigation} />
         </View>
     )

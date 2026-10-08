@@ -30,7 +30,16 @@ export default function Form({navigation }) {
 
             const resultado = registrarUsuario(paquete);
             if (resultado.ok) {
-                Alert.alert('Exito', 'Bienvenido');
+                Alert.alert(
+                    'Exito',
+                    'Cuenta creada exitosamente'
+                    [
+                        {
+                            text: 'Continuar',
+                            onPress:()=> navigation.navigate('Perfil')
+                        }
+                    ]
+                );
             } else {
                 Alert.alert('Aviso', resultado.mensaje)
             }
@@ -81,6 +90,7 @@ export default function Form({navigation }) {
             <TextInput
                 placeholder='Contraseña'
                 secureTextEntry
+                autoCapitalize='none'
                 value={contraseña}
                 onChangeText={setContraseña}
                 style={styles.input}
