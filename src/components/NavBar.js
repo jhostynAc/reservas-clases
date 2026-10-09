@@ -1,21 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import { spacing, colors } from '../theme';
 import {Ionicons} from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
-export default function NavBar({ navigation}) {
+let estaNavegando = false;
+export default function NavBar() {
     
+    const navigation = useNavigation();
+
+    const irA = (pantalla) => {
+        if (estaNavegando) return;
+        
+        estaNavegando = true;
+        navigation.navigate(pantalla);
+
+        setTimeout(() => {
+            estaNavegando = false; 
+        }, 500); 
+    };
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.boton} >
-                <Ionicons name="home" size={24} color="white" onPress={()=> navigation.navigate('Home')} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.boton}>
-                <Ionicons name="list" size={24} color="white" onPress={()=> navigation.navigate('Reservas')} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.boton} >
-                <Ionicons name="person" size={24} color="white"  onPress={()=> navigation.navigate('Login')}/>
-            </TouchableOpacity>
+            <Pressable style={styles.boton} onPress={() => irA('Home')}>
+                <Ionicons name="home" size={24} color="white"  />
+            </Pressable>
+            <Pressable style={styles.boton} onPress={() => irA('Reservas')} >
+                <Ionicons name="list" size={24} color="white" />
+            </Pressable>
+            <Pressable style={styles.boton} onPress={() => irA('Login')} >
+                <Ionicons name="person" size={24} color="white" />
+            </Pressable>
         </View>
     )
 }

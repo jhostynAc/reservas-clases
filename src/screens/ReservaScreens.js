@@ -1,5 +1,5 @@
 import React,{useLayoutEffect,useContext} from "react";
-import {View, Text, ScrollView,StyleSheet,FlatList } from 'react-native';
+import {View, Text, ScrollView,StyleSheet,FlatList} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ReservasContext} from '../context/ReservasContext';
 import useResponsive from '../hooks/useResponsive';

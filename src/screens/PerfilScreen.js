@@ -6,13 +6,13 @@ import { spacing, colors, radius } from '../theme';
 
 
 
-export default function PerfilScreen() {
+export default function PerfilScreen({navigation}) {
         const insets = useSafeAreaInsets();
     
     return (
         <View style={[styles.pantalla, { paddingTop: insets.top + spacing.md }]}>
             <Text style={styles.titulo}></Text>
-            <Perfil/>
+            <Perfil navigation={navigation}/>
         </View>
 
     )

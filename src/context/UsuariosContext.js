@@ -76,9 +76,36 @@ export function UsuarioProvider ({children}){
         setUsuarioActivo(null);
     },[])
 
+    const actualizarUsuario = (nuevoDato) =>{
+        let resultado = {ok: false, mensaje: ''}
+
+        setUsuario((ListaPrevia)=>{
+            const index = ListaPrevia.findIndex(u=>u.id === usuarioActivo.id);
+
+            if(index === -1){
+                resultado = {ok: false,mensaje:'usuario no encontrado'};
+                return ListaPrevia;
+            }
+
+            const nuevaLista = [...ListaPrevia];
+
+            const usuarioModificado = {...nuevaLista[index], ...nuevoDato};
+
+            nuevaLista[index] = usuarioModificado;
+
+            setUsuarioActivo(usuarioModificado);
+
+            resultado = {ok: true,mensaje: 'Datos actualizados con exito'};
+
+            return nuevaLista;
+        })
+
+        return resultado;
+    }
+    
     const valor = useMemo(
-        ()=>({usuarioActivo,cargando,registrarUsuario,iniciarSesion,cerrarSesion}),
-        [usuarioActivo,cargando,registrarUsuario,iniciarSesion,cerrarSesion]
+        ()=>({usuarioActivo,cargando,registrarUsuario,iniciarSesion,cerrarSesion,actualizarUsuario}),
+        [usuarioActivo,cargando,registrarUsuario,iniciarSesion,cerrarSesion,actualizarUsuario]
     )
     return <UsuarioContext.Provider value={valor}>{children}</UsuarioContext.Provider>
 

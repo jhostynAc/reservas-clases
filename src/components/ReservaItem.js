@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"; 
+import { View, Text, StyleSheet, Pressable } from "react-native"; 
 import { colors, spacing, radius } from '../theme';
 
 export default function ReservaItem({ horarios, horarioSeleccionado, setHorarioSeleccionado }) {
@@ -11,7 +11,7 @@ export default function ReservaItem({ horarios, horarioSeleccionado, setHorarioS
                 {horarios.map((horario, index) => {
                     const activo = horarioSeleccionado === horario;
                     return (
-                        <TouchableOpacity
+                        <Pressable
                             key={index}
                             style={[styles.horarioPill, activo && styles.horarioPillActivo]}
                             onPress={() => setHorarioSeleccionado(horario)}
@@ -19,7 +19,7 @@ export default function ReservaItem({ horarios, horarioSeleccionado, setHorarioS
                             <Text style={[styles.horarioTexto, activo && styles.horarioTextoActivo]}>
                                 {horario}
                             </Text>
-                        </TouchableOpacity>
+                        </Pressable>
                     );
                 })}
             </View>

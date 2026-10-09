@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert, TextInput } from 'react-native';
 import { spacing, colors, radius } from '../theme';
 import { Ionicons } from "@expo/vector-icons";
 import { UsuarioContext } from '../context/UsuariosContext'
@@ -36,7 +36,7 @@ export default function Form({navigation }) {
                     [
                         {
                             text: 'Continuar',
-                            onPress:()=> navigation.navigate('Perfil')
+                            onPress:()=> navigation.replace('Perfil')
                         }
                     ]
                 );
@@ -54,7 +54,7 @@ export default function Form({navigation }) {
                     [
                         {
                             text:"continuar",
-                            onPress:()=> navigation.navigate('Perfil')
+                            onPress:()=> navigation.replace('Perfil')
                         }
                     ]
                 )
@@ -86,6 +86,7 @@ export default function Form({navigation }) {
                 value={email}
                 onChangeText={setEmail}
                 style={styles.input}
+                placeholderTextColor={'black'}
             />
             <TextInput
                 placeholder='Contraseña'
@@ -94,6 +95,7 @@ export default function Form({navigation }) {
                 value={contraseña}
                 onChangeText={setContraseña}
                 style={styles.input}
+                placeholderTextColor={'black'}
             />
             {!esLogin && (
                 <>
@@ -102,40 +104,44 @@ export default function Form({navigation }) {
                         placeholder='Nombre'
                         value={nombre}
                         onChangeText={setNombre}
+                        placeholderTextColor={'black'}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='Apellido'
                         value={apellido}
-                        onChangeText={setApellido}
+                        onChangeText={setApellido}                            
+                        placeholderTextColor={'black'}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='Telefono'
                         keyboardType='phone-pad'
                         value={telefono}
-                        onChangeText={setTelefono}
+                        onChangeText={setTelefono}                            
+                        placeholderTextColor={'black'}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='URL foto'
                         value={foto}
-                        onChangeText={setFoto}
+                        onChangeText={setFoto}                             
+                        placeholderTextColor={'black'}
                     />
                 </>
 
             )
             }
-            <TouchableOpacity onPress={manejosSubmit}>
+            <Pressable onPress={manejosSubmit}>
                 <Text style={styles.boton}>
                     {esLogin ? 'Entrar' : 'Registrarse'}
                 </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setLogin(!esLogin)} >
+            </Pressable>
+            <Pressable onPress={() => setLogin(!esLogin)} >
                 <Text style={styles.preguntas} >
                     {esLogin ? '¿No tienes cuenta? Registrate aqui' : '¿Ya tienes cuenta? Inicia Sesion'}
                 </Text>
-            </TouchableOpacity>
+            </Pressable>
 
 
         </View>
